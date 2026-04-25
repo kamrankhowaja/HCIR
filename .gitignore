@@ -1,3 +1,6 @@
 Assignment_1/QIBullet_Source/myenv38/
 __pycache__/
 *.pyc
+myenv38/
+.venv/
+__pycache__/
