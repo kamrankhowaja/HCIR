@@ -36,30 +36,30 @@ class BehaviorRealizer():
 
     def waving_hand(self):
         # Raise arm into L-shape
-        self.nao.setAngles("RShoulderPitch", 0.0,  0.15)
-        self.nao.setAngles("RShoulderRoll",  -1.3, 0.15)
-        self.nao.setAngles("RElbowYaw",       1.5, 0.15)
-        self.nao.setAngles("RElbowRoll",      1.5, 0.15)
-        self.nao.setAngles("RWristYaw",       0.0, 0.15)
-        self.nao.setAngles("RHand",           1.0, 0.15) 
+        self.nao.setAngles("RShoulderPitch", 0.0, 0.15)
+        self.nao.setAngles("RShoulderRoll", -1.3, 0.15)
+        self.nao.setAngles("RElbowYaw", 1.5, 0.15)
+        self.nao.setAngles("RElbowRoll", 1.5, 0.15)
+        self.nao.setAngles("RWristYaw", 0.0, 0.15)
+        self.nao.setAngles("RHand", 1.0, 0.15) 
 
         # wait for arm to reach
         time.sleep(1.2)
 
         # Wave
         for _ in range(4):
-            self.nao.setAngles("RElbowRoll", 0.9, 0.4)   # open elbow
+            self.nao.setAngles("RElbowRoll", 0.9, 0.4)
             time.sleep(0.45)
-            self.nao.setAngles("RElbowRoll", 1.5, 0.4)   # close elbow
+            self.nao.setAngles("RElbowRoll", 1.5, 0.4)
             time.sleep(0.45)
 
         # Return arm
-        self.nao.setAngles("RHand",           0.0, 0.15)
-        self.nao.setAngles("RShoulderPitch", 1.5,  0.15)
-        self.nao.setAngles("RShoulderRoll",  -0.1, 0.15)
-        self.nao.setAngles("RElbowYaw",       1.2, 0.15)
-        self.nao.setAngles("RElbowRoll",      0.5, 0.15)
-        self.nao.setAngles("RWristYaw",       0.0, 0.15)
+        self.nao.setAngles("RHand", 0.0, 0.15)
+        self.nao.setAngles("RShoulderPitch", 1.5, 0.15)
+        self.nao.setAngles("RShoulderRoll", -0.1, 0.15)
+        self.nao.setAngles("RElbowYaw", 1.2, 0.15)
+        self.nao.setAngles("RElbowRoll", 0.5, 0.15)
+        self.nao.setAngles("RWristYaw", 0.0, 0.15)
         time.sleep(1.0)
 
 if __name__ == "__main__":
