@@ -21,6 +21,7 @@ class BehaviorRealizer():
 
         tts = gTTS(text=text, lang="en")
         tts.save(filename)
+
         # Here i would like to mention that i use Pygame as Playsound was not working for me 
         pygame.mixer.init()
         pygame.mixer.music.load(filename)
@@ -34,25 +35,32 @@ class BehaviorRealizer():
 
 
     def waving_hand(self):
-        # Arm movement to wave hand
-        self.nao.setAngles("RShoulderPitch", -1.0, 0.2)
-        # self.nao.setAngles("RShoulderRoll", -0.3, 0.2)
-        self.nao.setAngles("RElbowYaw", 1.0, 0.2)
-        # self.nao.setAngles("RElbowRoll", 1.2, 0.2)
-        time.sleep(0.5)
+        # Raise arm into L-shape
+        self.nao.setAngles("RShoulderPitch", 0.0,  0.15)
+        self.nao.setAngles("RShoulderRoll",  -1.3, 0.15)
+        self.nao.setAngles("RElbowYaw",       1.5, 0.15)
+        self.nao.setAngles("RElbowRoll",      1.5, 0.15)
+        self.nao.setAngles("RWristYaw",       0.0, 0.15)
+        self.nao.setAngles("RHand",           1.0, 0.15) 
 
-        for i in range(3):
-            self.nao.setAngles("RWristYaw", 1.0, 0.3)
-            time.sleep(0.5)
-            self.nao.setAngles("RWristYaw", -1.0, 0.3)
-            time.sleep(0.5)
+        # wait for arm to reach
+        time.sleep(1.2)
 
-        # Return arm to initial position
-        self.nao.setAngles("RShoulderPitch", 1.0, 0.2)
-        # self.nao.setAngles("RShoulderRoll", 0.3, 0.2)
-        self.nao.setAngles("RElbowYaw", -1.0, 0.2)
-        # self.nao.setAngles("RElbowRoll", -1.2, 0.2)
-        time.sleep(0.5)
+        # Wave
+        for _ in range(4):
+            self.nao.setAngles("RElbowRoll", 0.9, 0.4)   # open elbow
+            time.sleep(0.45)
+            self.nao.setAngles("RElbowRoll", 1.5, 0.4)   # close elbow
+            time.sleep(0.45)
+
+        # Return arm
+        self.nao.setAngles("RHand",           0.0, 0.15)
+        self.nao.setAngles("RShoulderPitch", 1.5,  0.15)
+        self.nao.setAngles("RShoulderRoll",  -0.1, 0.15)
+        self.nao.setAngles("RElbowYaw",       1.2, 0.15)
+        self.nao.setAngles("RElbowRoll",      0.5, 0.15)
+        self.nao.setAngles("RWristYaw",       0.0, 0.15)
+        time.sleep(1.0)
 
 if __name__ == "__main__":
 
