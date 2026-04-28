@@ -9,6 +9,7 @@ import os
 class BehaviorRealizer():
 
     def __init__(self):
+        # starts simulation and drops NAO robot into the simulation
         simulation_manager = SimulationManager()
         client = simulation_manager.launchSimulation(gui=True)
         self.nao = simulation_manager.spawnNao(
@@ -19,9 +20,11 @@ class BehaviorRealizer():
     def speak(self, text):
         filename = f"robot_speech.mp3"
 
+        # Convert text to speech using Google Text-to-Speech 
         tts = gTTS(text=text, lang="en")
         tts.save(filename)
 
+        # After user text input, play audio of that text and wait until it finishes
         # Here i would like to mention that i use Pygame as Playsound was not working for me 
         pygame.mixer.init()
         pygame.mixer.music.load(filename)
@@ -73,8 +76,10 @@ if __name__ == "__main__":
         user_input = input("INPUT: (Write done exit end or stop to end the program) ")
 
         if user_input.lower() in INPUT_OPTIONS:
+            # Exit the loop
             repeat_ = False
 
         else:
+            # Make the robot speak the input, then wave
             behavior_realizer_class.speak(user_input)
             behavior_realizer_class.waving_hand()
