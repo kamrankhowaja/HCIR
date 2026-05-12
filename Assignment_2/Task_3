@@ -1,0 +1,23 @@
+3.1 What do you understand by "incremental dialog processing"?
+-> Incremental dialog processing basically means the system starts processing user input while the user is still speaking, rather than waiting for them to finish the whole statement. So instead of treating the statement as one big chunk, each small piece of input already triggers activity in the system. This makes the interaction feel much more natural and responsive, kind of like how real human conversations work, where people react and give feedback even in the middle of someone talking.
+
+3.2 How does incremental dialog processing support human-centeredness in interaction?
+->
+Incremental processing makes dialog systems behave more like a real human conversational partner, which is the core idea behind human-centered interaction.
+
+There are a few key ways this works:
+Traditional systems fail to handle mid-utterance reactions like acknowledgements or clarification requests, but incremental systems can give feedback right in the middle of someone speaking, just like humans do.
+Since later modules can start working on partial results without waiting for earlier modules to finish, the system is faster and more efficient in its responses.
+It allows the system to use richer cues like prosody, syntax and semantics for turn-taking decisions, rather than relying only on silence detection, which is a pretty unreliable signal on its own.
+The system can also monitor its own output and relate the user's reactions to specific parts of what it just said, which is how humans naturally track conversations.
+All of this together gives users the feeling that the system is actually listening and engaged, which is what makes an interaction feel truly human-centered.
+
+
+3.3 In the example presented in the paper, how did prosodic analysis contribute to incrementality?
+->
+In the NUMBERS system, prosodic analysis helped the system decide whether the user had finished speaking or was still in the middle of a number sequence. It used delta pitch to classify words as rising or falling. Rising pitch meant the user was mid-sequence, so the system gave immediate feedback, while falling pitch meant the sequence was ending, so it waited a little longer before responding. This reduced response time of the systems significantly.
+
+
+3.4 In the architecture for spoken dialog systems presented in the paper, why is TTS connected to Discourse Modeller?
+->
+The TTS (Test-to-Speech) is connected to the Discourse Modeller (GALATEA) so the system knows what it actually said, not just what it planned to say. After speaking, or if interrupted mid-utterance, the TTS sends back the semantic content of the spoken parts to GALATEA. This allows the discourse model to relate the user's responses to specific parts of the system's output, keeping the dialogue coherent and context-aware.
