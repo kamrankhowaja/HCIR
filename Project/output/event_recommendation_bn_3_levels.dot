@@ -1,0 +1,41 @@
+digraph SocialEventRecommendationBN {
+  rankdir=TB;
+  node [shape=box, style=rounded];
+  subgraph cluster_level_1 {
+    label="Level 1: Input / Preference Nodes";
+    rank=same;
+    RecognizedUser [label="RecognizedUser\n{Known, Unknown}"];
+    UserPreferenceHistory [label="UserPreferenceHistory\n{Music, Food, Sports, Culture, Networking, Games, Unknown}"];
+    Mood [label="Mood\n{Relaxed, Excited, Stressed}"];
+    EnvironmentPreference [label="EnvironmentPreference\n{Indoor, Outdoor, NoPreference}"];
+    GroupSize [label="GroupSize\n{Alone, Pair, SmallGroup, LargeGroup}"];
+    BudgetPreference [label="BudgetPreference\n{Free, Low, Medium, High}"];
+  }
+  subgraph cluster_level_2 {
+    label="Level 2: Inference Nodes";
+    rank=same;
+    SocialEnergy [label="SocialEnergy\n{Low, Medium, High}"];
+    TimeRestrictions [label="TimeRestrictions\n{Short, Medium, Long}"];
+    InterestType [label="InterestType\n{Music, Food, Sports, Culture, Networking, Games}"];
+    EventScoreMatching [label="EventScoreMatching\n{Low, Medium, High}"];
+  }
+  subgraph cluster_level_3 {
+    label="Level 3: Output Node";
+    rank=same;
+    RecommendedEvent [label="RecommendedEvent\n{Concert, FoodFestival, SportsEvent, MuseumVisit, StudentMeetup, BoardGameNight, Picnic}"];
+  }
+  RecognizedUser -> UserPreferenceHistory;
+  UserPreferenceHistory -> Mood;
+  UserPreferenceHistory -> EventScoreMatching;
+  Mood -> SocialEnergy;
+  EnvironmentPreference -> SocialEnergy;
+  GroupSize -> SocialEnergy;
+  EnvironmentPreference -> TimeRestrictions;
+  GroupSize -> TimeRestrictions;
+  SocialEnergy -> InterestType;
+  TimeRestrictions -> InterestType;
+  GroupSize -> InterestType;
+  BudgetPreference -> InterestType;
+  InterestType -> EventScoreMatching;
+  EventScoreMatching -> RecommendedEvent;
+}
