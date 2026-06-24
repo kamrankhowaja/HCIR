@@ -9,3 +9,5 @@ projects/venv/
 
 Project/projectenv/
 Project/known_faces/
+Project/projectenv_py310_backup/
+Project/.python-version
