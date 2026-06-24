@@ -6,3 +6,6 @@ myenv38/
 __pycache__/
 Assignment_4/venv/
 projects/venv/
+
+Project/projectenv/
+Project/known_faces/
