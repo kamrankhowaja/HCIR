@@ -1,0 +1,29 @@
+stories:
+
+- story: answer requirements
+  steps:
+  - user: |
+      What are the admission requirements for MAS?
+    intent: ask_requirements
+  - action: utter_requirements
+
+- story: answer deadlines
+  steps:
+  - user: |
+      When is the application deadline?
+    intent: ask_deadlines
+  - action: utter_deadlines
+
+- story: answer documents
+  steps:
+  - user: |
+      Which documents do I need?
+    intent: ask_documents
+  - action: utter_documents
+
+- story: answer lunch menu
+  steps:
+  - user: |
+      What's for lunch today at the canteen?
+    intent: ask_lunch_menu
+  - action: action_get_lunch_menu

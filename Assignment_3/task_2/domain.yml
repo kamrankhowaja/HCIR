@@ -1,0 +1,48 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - ask_requirements
+  - ask_deadlines
+  - ask_documents
+  - ask_language
+  - ask_admission_results
+  - ask_contact
+  - ask_advice
+  - ask_lunch_menu
+
+responses:
+  utter_greet:
+  - text: "Welcome to the MAS Admission Assistant! I can help with requirements, documents, deadlines, English certificates, contacts, or today's menu at Mensa Sankt Augustin."
+  
+  utter_goodbye:
+  - text: "Goodbye, and good luck with your MAS application!"
+
+  utter_requirements:
+  - text: "For MAS admission you need a bachelor's degree or equivalent with sufficient computer science knowledge and a German-equivalent grade of 2.5 or better. A CS degree is accepted directly; degrees in mathematics, natural sciences, engineering, or economics need at least 90 ECTS, about 50 percent, in CS-related content."
+  
+  utter_deadlines:
+  - text: "MAS starts in both summer and winter semesters. Applicants who need a German visa and have a foreign bachelor's degree apply via uni-assist: 15 May to 15 July for the following summer semester, and 15 November to 15 February for the winter semester. Germans, applicants without a visa requirement, or applicants who already have a German visa apply via Apollo: 15 May to 15 December for summer, and 15 November to 15 June for winter."
+
+  utter_documents:
+  - text: "Prepare your degree certificate and transcripts, the university grading system, APS certificate if your degree is from China, India, or Vietnam, a current tabular CV, a self-written motivation letter of max. 2 pages, and official B2+ English proof. If you have not graduated yet, transcripts up to one semester before graduation may be enough for conditional admission."
+  
+  utter_language:
+  - text: "The MAS programme is taught in English. You need official English proof at B2+ level; a medium-of-instruction letter is not enough unless you are exempt through a school or university degree from Australia, Ireland, Canada except Quebec, New Zealand, the UK, or the USA. German certificates are not required for admission."
+
+  utter_admission_results:
+  - text: "Admission results are announced in the Apollo application portal from 15 March for the winter semester and from 15 September for the summer semester. Non-European applicants receive confirmation no later than four months after the application deadline."
+
+  utter_contact:
+  - text: "For MAS programme questions, contact the coordinator Kristin Poellmann at kristin.poellmann@h-brs.de or the study advisor Youssef Mahmoud Youssef at youssef-mahmoud.youssef@h-brs.de. For formal application and enrolment questions, contact Student Services at student.services@h-brs.de."
+
+  utter_advice:
+  - text: "A strong MAS application makes your CS background easy to evaluate. In the motivation letter, be concrete about programming languages, major programming projects, robotics experience if you have it, and one research and development project you would like to work on during the programme."
+
+actions:
+  - action_get_lunch_menu
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

@@ -1,0 +1,117 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: ask_requirements
+  examples: |
+    - What are the admission requirements for MAS?
+    - Do I need a computer science degree?
+    - What GPA do I need?
+    - What documents do I need to upload?
+    - Can I apply with an engineering degree?
+    - Is a bachelor in mathematics accepted?
+    - How many computer science credits do I need?
+    - Is my grade good enough for Autonomous Systems?
+    - Do I need 90 ECTS in computer science?
+
+- intent: ask_deadlines
+  examples: |
+    - When is the application deadline?
+    - What are the dates for the winter semester?
+    - Until when can I apply via uni-assist?
+    - When can I apply for the summer semester?
+    - What is the Apollo deadline?
+    - I need a visa, when is my deadline?
+    - What are the application periods?
+    - Is the winter semester deadline different for uni-assist?
+
+- intent: ask_documents
+  examples: |
+    - Which documents do I need?
+    - What should I upload for the application?
+    - Do I need a CV?
+    - What is required for the motivation letter?
+    - Do I need an APS certificate?
+    - Can I apply before I graduate?
+    - Are transcripts enough if I do not have my certificate yet?
+
+- intent: ask_language
+  examples: |
+    - Do I need to speak German?
+    - What English level is required?
+    - Is an English certificate mandatory?
+    - Is a medium of instruction letter enough?
+    - Do I need IELTS?
+    - Do I need TOEFL?
+    - Are German language certificates required?
+    - Can I apply without an English test?
+
+- intent: ask_admission_results
+  examples: |
+    - When will I get the admission result?
+    - When are admission decisions announced?
+    - How do I know if I got accepted?
+    - When will Apollo show the result?
+    - How long do non EU applicants wait?
+
+- intent: ask_contact
+  examples: |
+    - Who can I contact about MAS?
+    - What is the email address for the programme coordinator?
+    - I need the study advisor contact
+    - How can I contact student services?
+    - Who answers questions about admission?
+
+- intent: ask_advice
+  examples: |
+    - Do you have any tips for the application?
+    - How can I improve my chances of admission?
+    - What should I put in my motivation letter?
+    - How should I write a good motivation letter?
+    - What experience should I highlight?
+    - What can make my application stronger?
+    - Should I mention robotics projects?
+    - Give me advice for applying to MAS
+
+- intent: ask_lunch_menu
+  examples: |
+    - What's for lunch today at the canteen?
+    - Get me the menu for the Mensa.
+    - What is the cafeteria serving today?
+    - lunch menu please
+    - What is Mensa Sankt Augustin serving?
+    - Show me today's canteen food
+    - Is there food in the mensa today?
+    - Get the current lunch menu
+    - What's for lunch tomorrow?
+    - Show me the mensa menu for tomorrow
+    - What was served yesterday at the canteen?
+    - lunch menu for yesterday

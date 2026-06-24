@@ -1,0 +1,56 @@
+{
+  "type": "IntentMaxHistoryTrackerFeaturizer",
+  "state_featurizer": {
+    "action_texts": [],
+    "entity_tag_specs": [],
+    "feature_states": {
+      "intent": {
+        "ask_admission_results": 0,
+        "ask_advice": 1,
+        "ask_contact": 2,
+        "ask_deadlines": 3,
+        "ask_documents": 4,
+        "ask_language": 5,
+        "ask_lunch_menu": 6,
+        "ask_requirements": 7,
+        "back": 8,
+        "goodbye": 9,
+        "greet": 10,
+        "nlu_fallback": 11,
+        "out_of_scope": 12,
+        "restart": 13,
+        "session_start": 14
+      },
+      "action_name": {
+        "action_listen": 0,
+        "action_restart": 1,
+        "action_session_start": 2,
+        "action_default_fallback": 3,
+        "action_deactivate_loop": 4,
+        "action_revert_fallback_events": 5,
+        "action_default_ask_affirmation": 6,
+        "action_default_ask_rephrase": 7,
+        "action_two_stage_fallback": 8,
+        "action_unlikely_intent": 9,
+        "action_back": 10,
+        "...": 11,
+        "action_extract_slots": 12,
+        "action_get_lunch_menu": 13,
+        "utter_admission_results": 14,
+        "utter_advice": 15,
+        "utter_contact": 16,
+        "utter_deadlines": 17,
+        "utter_documents": 18,
+        "utter_goodbye": 19,
+        "utter_greet": 20,
+        "utter_language": 21,
+        "utter_requirements": 22
+      },
+      "entities": {},
+      "slots": {},
+      "active_loop": {}
+    }
+  },
+  "remove_duplicates": true,
+  "max_history": 5
+}

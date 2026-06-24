@@ -1,0 +1,36 @@
+{
+  "lookup": {
+    "rules": {
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_deadlines\"}}]": "utter_deadlines",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_deadlines\"}}, {\"prev_action\": {\"action_name\": \"utter_deadlines\"}, \"user\": {\"intent\": \"ask_deadlines\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_documents\"}}]": "utter_documents",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_documents\"}}, {\"prev_action\": {\"action_name\": \"utter_documents\"}, \"user\": {\"intent\": \"ask_documents\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_language\"}}]": "utter_language",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_language\"}}, {\"prev_action\": {\"action_name\": \"utter_language\"}, \"user\": {\"intent\": \"ask_language\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_admission_results\"}}]": "utter_admission_results",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_admission_results\"}}, {\"prev_action\": {\"action_name\": \"utter_admission_results\"}, \"user\": {\"intent\": \"ask_admission_results\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"goodbye\"}}]": "utter_goodbye",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"goodbye\"}}, {\"prev_action\": {\"action_name\": \"utter_goodbye\"}, \"user\": {\"intent\": \"goodbye\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"greet\"}}]": "utter_greet",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"greet\"}}, {\"prev_action\": {\"action_name\": \"utter_greet\"}, \"user\": {\"intent\": \"greet\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_requirements\"}}]": "utter_requirements",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_requirements\"}}, {\"prev_action\": {\"action_name\": \"utter_requirements\"}, \"user\": {\"intent\": \"ask_requirements\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_advice\"}}]": "utter_advice",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_advice\"}}, {\"prev_action\": {\"action_name\": \"utter_advice\"}, \"user\": {\"intent\": \"ask_advice\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_lunch_menu\"}}]": "action_get_lunch_menu",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_lunch_menu\"}}, {\"prev_action\": {\"action_name\": \"action_get_lunch_menu\"}, \"user\": {\"intent\": \"ask_lunch_menu\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_contact\"}}]": "utter_contact",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_contact\"}}, {\"prev_action\": {\"action_name\": \"utter_contact\"}, \"user\": {\"intent\": \"ask_contact\"}}]": "action_listen"
+    },
+    "rule_only_slots": [],
+    "rule_only_loops": [],
+    "rules_for_loop_unhappy_path": {},
+    "rules_not_in_stories": [
+      "predicting default action with intent restart",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_lunch_menu\"}}]",
+      "predicting default action with intent back",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"ask_lunch_menu\"}}, {\"prev_action\": {\"action_name\": \"action_get_lunch_menu\"}, \"user\": {\"intent\": \"ask_lunch_menu\"}}]",
+      "predicting default action with intent session_start"
+    ]
+  }
+}
