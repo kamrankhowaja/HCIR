@@ -1,0 +1,17 @@
+# OpenCV for video handling and frame rendering
+opencv-python>=4.5.0
+
+# Numerical arrays and face matching calculations
+numpy>=1.20.0
+
+# Advanced Biometric Extraction (Requires dlib to be compiled first)
+face_recognition>=1.3.0
+
+# Offline Text-to-Speech (TTS) Engine
+pyttsx3>=2.90
+
+# Speech-to-Text (STT) Processing Engine
+SpeechRecognition>=3.8.1
+
+# Audio Input Stream Capture Handler (Required by SpeechRecognition)
+PyAudio>=0.2.11
