@@ -1,5 +1,5 @@
 """
-SocioBot  — Social Event Recommendation Robot
+SocioBot  - Social Event Recommendation Robot
 """
 
 from __future__ import annotations
@@ -31,13 +31,13 @@ from modules.event_recommendation_bn import EventRecommendationNetwork
 
 # Human-readable explanations for each event
 EVENT_DESCRIPTIONS = {
-    "Concert":       "a live music concert — great for music lovers in an energetic crowd",
-    "FoodFestival":  "a food festival — perfect for foodies who enjoy variety and outdoor fun",
-    "SportsEvent":   "a sports event — ideal for active, competitive, group-oriented people",
-    "MuseumVisit":   "a museum visit — a calm cultural experience, great for solo or small groups",
-    "StudentMeetup": "a student meetup — excellent for networking and meeting new people",
-    "BoardGameNight":"a board game night — fun, relaxed, and perfect for small groups on a budget",
-    "Picnic":        "a picnic — a low-cost, outdoor, easygoing option for any group size",
+    "Concert":       "a live music concert - great for music lovers in an energetic crowd",
+    "FoodFestival":  "a food festival - perfect for foodies who enjoy variety and outdoor fun",
+    "SportsEvent":   "a sports event - ideal for active, competitive, group-oriented people",
+    "MuseumVisit":   "a museum visit - a calm cultural experience, great for solo or small groups",
+    "StudentMeetup": "a student meetup - excellent for networking and meeting new people",
+    "BoardGameNight":"a board game night - fun, relaxed, and perfect for small groups on a budget",
+    "Picnic":        "a picnic - a low-cost, outdoor, easygoing option for any group size",
 }
 
 def _normalize_choice_answer(answer: str) -> str:
@@ -165,8 +165,8 @@ def introduce_sociobot(status: str, name: str, pepper=None) -> None:
     """
     intro = random.choice([
         f"Hello {name}. I am SocioBot. I help Homo sapiens choose events based on their mood, budget, group size, and preferences. From mood to move, in seconds.",
-        f"Hi {name}, welcome back. I am SocioBot. Tell me a little about your plans, and I can suggest something that fits. From mood to move — in seconds.",
-        f"Hey {name}. SocioBot is back online. I can help you find something interesting to do today. From mood to move — in seconds."
+        f"Hi {name}, welcome back. I am SocioBot. Tell me a little about your plans, and I can suggest something that fits. From mood to move - in seconds.",
+        f"Hey {name}. SocioBot is back online. I can help you find something interesting to do today. From mood to move - in seconds."
     ])
 
     robot_act_and_say(
@@ -336,7 +336,7 @@ class SocioBotApp:
 
         time.sleep(0.5)
 
-        # Dialog — collect preferences
+        # Dialog - collect preferences
         print("\n[STEP 3] Running preference dialog...")
         dm = DialogManager(pepper=self.pepper)
         preference_evidence = dm.run()
@@ -402,7 +402,7 @@ def run_interaction(pepper=None) -> bool:
 
 #  ENTRY POINT
 def parse_args():
-    parser = argparse.ArgumentParser(description="SocioBot — Social Event Recommendation Robot")
+    parser = argparse.ArgumentParser(description="SocioBot - Social Event Recommendation Robot")
     parser.add_argument(
         "--no-robot", action="store_true",
         help="Run without qiBullet simulation (text-only mode)"
@@ -430,12 +430,14 @@ def main():
 
     app = SocioBotApp(pepper=pepper, sim_manager=sim_manager)
 
-    # Main loop — keep running until keyboard interrupt
+    # Main loop - keep running until keyboard interrupt
     try:
         while True:
             keep_running = app.run_interaction()
             if not keep_running:
                 break
+            time.sleep(2)
+
 
     except KeyboardInterrupt:
         print("\n\n[INFO] Interrupted by user.")

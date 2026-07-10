@@ -355,14 +355,14 @@ class EventRecommendationNetwork:
     def save_bn(self, bn, filename):
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         gum.saveBN(bn, filename)
-        print(f"Saved BN → {filename}")
+        print(f"Saved BN --> {filename}")
 
     def export_bn_to_dot(self, bn, dot_filename):
         os.makedirs(os.path.dirname(dot_filename), exist_ok=True)
         dot_code = bn.toDot()
         with open(dot_filename, "w", encoding="utf-8") as f:
             f.write(dot_code)
-        print(f"Saved DOT → {dot_filename}")
+        print(f"Saved DOT --> {dot_filename}")
 
     def render_dot_to_png(self, dot_filename, png_filename):
         os.makedirs(os.path.dirname(png_filename), exist_ok=True)
@@ -370,7 +370,7 @@ class EventRecommendationNetwork:
             subprocess.run(
                 ["dot", "-Tpng", dot_filename, "-o", png_filename], check=True
             )
-            print(f"Rendered PNG → {png_filename}")
+            print(f"Rendered PNG --> {png_filename}")
             return True
         except FileNotFoundError:
             print("Graphviz 'dot' not found. Install Graphviz to render PNG.")

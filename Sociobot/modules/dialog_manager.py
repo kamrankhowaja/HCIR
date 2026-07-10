@@ -54,7 +54,7 @@ class AnswerMapper:
     def map_budget(answer: str) -> Optional[str]:
         return _map_budget(answer)
 
-#  ANSWER → BN STATE MAPPERS
+#  ANSWER --> BN STATE MAPPERS
 def _map_mood(answer: str) -> Optional[str]:
     """Map free-text mood answer to BN state, including vague/indirect phrasing."""
 

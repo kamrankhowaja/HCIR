@@ -103,7 +103,7 @@ try:
     QIBULLET_AVAILABLE = True
 except Exception:
     QIBULLET_AVAILABLE = False
-    print("[WARN] qiBullet not available — gestures will be printed only.")
+    print("[WARN] qiBullet not available - gestures will be printed only.")
 
 
 #  SIMULATION LAUNCHER
@@ -113,7 +113,7 @@ def launch_simulation():
     Returns (None, None) if qiBullet is unavailable.
     """
     if not QIBULLET_AVAILABLE:
-        print("[INFO] qiBullet not available — running without simulation.")
+        print("[INFO] qiBullet not available - running without simulation.")
         return None, None
 
     sim_manager = SimulationManager()
@@ -167,7 +167,7 @@ def robot_say(text: str, pepper=None) -> None:
             asyncio.run(_edge_tts_speak_async(text, EDGE_TTS_VOICE))
             return
         except Exception as e:
-            print(f"[WARN] edge-tts error: {e} — falling back to system TTS.")
+            print(f"[WARN] edge-tts error: {e} - falling back to system TTS.")
 
     # Windows SAPI (WSL only)
     if TTS_BACKEND == "windows-sapi":
@@ -275,14 +275,14 @@ def robot_listen(prompt_text: str, pepper=None) -> str:
                 stop_listening_gesture()
             except Exception:
                 pass
-            print(f"[INFO] Mic/Whisper failed ({e}) — switching to keyboard.")
+            print(f"[INFO] Mic/Whisper failed ({e}) - switching to keyboard.")
     elif STT_AVAILABLE and not WHISPER_AVAILABLE:
-        print("[INFO] Microphone present but faster-whisper missing — using keyboard.")
+        print("[INFO] Microphone present but faster-whisper missing - using keyboard.")
 
     answer = input("[YOU] ").strip()
     return answer
 
-#  GESTURES  — all run in daemon threads so they don't block the main loop
+#  GESTURES  - all run in daemon threads so they don't block the main loop
 def _run_in_thread(fn):
     """Helper: run fn in a daemon thread."""
     threading.Thread(target=fn, daemon=True).start()
@@ -378,7 +378,7 @@ def robot_wave(pepper=None) -> None:
 
 # NOD
 def robot_nod(pepper=None, times: int = 2) -> None:
-    """Head nod — acknowledgement."""
+    """Head nod - acknowledgement."""
     if not QIBULLET_AVAILABLE or pepper is None:
         print("[SOCIOBOT] *nods*")
         return
@@ -400,7 +400,7 @@ def robot_nod(pepper=None, times: int = 2) -> None:
 # THINKING
 def robot_thinking(pepper=None, duration: float = 2.5) -> None:
     """
-    Hand-to-chin thinking pose — used while BN inference runs.
+    Hand-to-chin thinking pose - used while BN inference runs.
     Blocks for `duration` seconds (intentional: inference is happening).
     """
     if not QIBULLET_AVAILABLE or pepper is None:
@@ -429,7 +429,7 @@ def robot_thinking(pepper=None, duration: float = 2.5) -> None:
 
 # PRESENTING 
 def robot_present(pepper=None) -> None:
-    """Presenting 'Ta-da!' gesture — open palm, used for top recommendations."""
+    """Presenting 'Ta-da!' gesture - open palm, used for top recommendations."""
     if not QIBULLET_AVAILABLE or pepper is None:
         print("[SOCIOBOT] *presents with a flourish!*")
         return
@@ -460,7 +460,7 @@ def robot_present(pepper=None) -> None:
 
 # EXCITED
 def robot_excited(pepper=None) -> None:
-    """Both-arms raise — used when greeting a known returning user."""
+    """Both-arms raise - used when greeting a known returning user."""
     if not QIBULLET_AVAILABLE or pepper is None:
         print("[SOCIOBOT] *excited!*")
         return
@@ -492,7 +492,7 @@ def robot_excited(pepper=None) -> None:
 # FAREWELL WAVE
 def robot_farewell(pepper=None) -> None:
     """
-    Slow, deliberate farewell wave — bigger motion than greeting wave.
+    Slow, deliberate farewell wave - bigger motion than greeting wave.
     Blocks briefly so farewell speech overlaps naturally.
     """
     if not QIBULLET_AVAILABLE or pepper is None:
@@ -523,7 +523,7 @@ def robot_farewell(pepper=None) -> None:
 
 # POINT FORWARD
 def robot_point(pepper=None) -> None:
-    """Point forward — used when presenting a recommendation."""
+    """Point forward - used when presenting a recommendation."""
     if not QIBULLET_AVAILABLE or pepper is None:
         print("[SOCIOBOT] *points forward*")
         return

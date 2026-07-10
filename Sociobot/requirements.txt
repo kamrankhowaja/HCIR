@@ -12,4 +12,5 @@ better-profanity==0.7.0
 pgmpy==1.0.0
 pyAgrum==1.13.2
 edge-tts==7.2.8
-soundfile==0.14.0
+soundfile>=0.13.1
+

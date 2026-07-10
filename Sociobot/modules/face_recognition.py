@@ -1,8 +1,9 @@
 """
 Face Detection and Recognition module for SocioBot
 """
-
 from __future__ import annotations
+from cv2 import CAP_V4L2
+
 import importlib
 import os
 import re
@@ -210,7 +211,7 @@ def identify_face(encoding: np.ndarray, db: dict) -> Optional[str]:
 
 def quick_face_present(gray_frame: np.ndarray) -> bool:
     """
-    Fast Haar cascade check — True if any face visible.
+    Fast Haar cascade check - True if any face visible.
     Used as a grace-period guard so a single missed frame doesn't reset counters.
     """
     faces = _face_cascade.detectMultiScale(
@@ -348,8 +349,8 @@ def clean_spoken_name(raw_name: str) -> str:
 
     filler_words = {
         "uh", "um", "actually", "please", "thanks", "thank", "you",
-        "yes", "yeah", "sure", "okay", "great", "again", "once",
-        "going", "to", "go", "call", "me", "just", "put", "but"
+        "yes", "yeah", "sure", "okay", "great", "again", "once", "can",
+        "going", "to", "go", "call", "me", "just", "put", "but", "my name is", "i am called", "call me", "i am", "it is", "its"
     }
 
     words = [w for w in text.split() if w.lower() not in filler_words]
@@ -472,11 +473,21 @@ def run_face_recognition(pepper=None) -> tuple[str, str]:
       "unknown" -> user quit camera before recognition
     """
     db  = load_known_faces()
-    cap = cv2.VideoCapture(0)
-    cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'))
+    cap = cv2.VideoCapture(CAP_V4L2)
+    # cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'))
 
     if not cap.isOpened():
         raise RuntimeError("Cannot open webcam. Check camera connection.")
+
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+
+    for _ in range(15):
+        ret, _ = cap.read()
+        if not ret:
+            time.sleep(0.05)
+
+
 
     confirm_buffer  = {}
     unknown_counter = 0
@@ -491,25 +502,42 @@ def run_face_recognition(pepper=None) -> tuple[str, str]:
     while True:
         ret, frame = cap.read()
         if not ret:
-            break
+            print("[WARN] Failed to grab frame, retrying...")
+            time.sleep(0.05)
+            continue
+
+        # Guard against black/corrupted frames
+        if frame is None or frame.mean() < 1.0:
+            print("[WARN] Received black/empty frame, skipping.")
+            continue
+
 
         gray  = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        small = cv2.resize(frame, (640, 480), fx=0.5, fy=0.5)
+        small = cv2.resize(frame, (640, 480))
         rgb   = cv2.cvtColor(small, cv2.COLOR_BGR2RGB)
+        # small = cv2.resize(frame, (640, 480), fx=0.5, fy=0.5)
+        # rgb   = cv2.cvtColor(small, cv2.COLOR_BGR2RGB)
 
         locations = fr.face_locations(rgb, model="hog")
         encodings = fr.face_encodings(rgb, locations)
 
         # Scale bounding boxes back to original resolution
-        locations_full = [(t*2, r*2, b*2, l*2) for t, r, b, l in locations]
+        # locations_full = [(t*2, r*2, b*2, l*2) for t, r, b, l in locations]
+
+        scale_x = frame.shape[1] / 640
+        scale_y = frame.shape[0] / 480
+        locations_full = [
+            (int(t * scale_y), int(r * scale_x), int(b * scale_y), int(l * scale_x))
+            for t, r, b, l in locations
+        ]
 
         if not encodings:
             if quick_face_present(gray):
-                no_face_frames = 0  # Haar still sees something — transient glitch
+                no_face_frames = 0  # Haar still sees something - transient glitch
             else:
                 no_face_frames += 1
                 if no_face_frames >= NO_FACE_GRACE:
-                    # Person has genuinely left — full reset
+                    # Person has genuinely left - full reset
                     unknown_counter = 0
                     confirm_buffer  = {}
                     last_enc        = None
@@ -570,7 +598,7 @@ def run_face_recognition(pepper=None) -> tuple[str, str]:
                         name = register_new_user(enc_to_use, db, pepper)
                         return ("new", name)
 
-        cv2.imshow("SocioBot — Face Recognition", frame)
+        cv2.imshow("SocioBot - Face Recognition", frame)
         key = cv2.waitKey(1) & 0xFF
 
         if key in (ord("u"), ord("U")):
@@ -651,4 +679,4 @@ class FaceRecognizer:
 if __name__ == "__main__":
     print("Running face recognition standalone (no robot)...")
     status, name = run_face_recognition(pepper=None)
-    print(f"\nResult → status={status!r}, name={name!r}")
+    print(f"\nResult --> status={status!r}, name={name!r}")
