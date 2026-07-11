@@ -16,7 +16,7 @@ except ModuleNotFoundError:
 _BANNED = {
     "fuck", "shit", "ass", "bitch", "bastard", "crap",
     "damn", "piss", "cock", "dick", "pussy", "cunt",
-    "idiot", "stupid", "moron", "retard", "hate"
+    "idiot", "stupid", "moron", "retard", "hate", "fuck off"
 }
 
 
@@ -59,11 +59,13 @@ def _map_mood(answer: str) -> Optional[str]:
     """Map free-text mood answer to BN state, including vague/indirect phrasing."""
 
     a = answer.lower()
-    if any(w in a for w in ["relax", "calm", "chill", "tired", "quiet", "peaceful", "easy"]):
+    if any(w in a for w in ["relax", "calm", "chill", "tired", "quiet", "peaceful", 
+                            "easy" ,"cool", "good"]):
         return "Relaxed"
-    if any(w in a for w in ["excit", "happy", "energet", "fun", "great", "amaz", "hype", "pumped", "thrilled"]):
+    if any(w in a for w in ["excited", "happy", "energetic", "fun", "great", "amaz", "hype", 
+                            "pumped", "thrilled", "fantastic", "awesome" , "amazing"]):
         return "Excited"
-    if any(w in a for w in ["stress", "anxious", "nervous", "overwhelm", "worried",
+    if any(w in a for w in ["stress", "anxious", "nervous", "overwhelm", "worried", "dont feel good",
                             "not great", "not good", "not well", "bad", "terrible", "awful"]):
         return "Stressed"
     
@@ -97,7 +99,7 @@ def _map_group_size(answer: str) -> Optional[str]:
         return "Alone"
     if any(w in a for w in ["small group", "small", "few", "3", "4", "handful", "couple of friends"]):
             return "SmallGroup"
-    if any(w in a for w in ["pair", "partner", "friend", "date", "two", "couple", "girlfriend", "boyfriend", "2"]):
+    if any(w in a for w in ["pair", "partner", "friend", "date", "two", "couple", "girlfriend", "boyfriend", "2", "better half"]):
         return "Pair"
     if any(w in a for w in ["large group", "large", "big", "many", "lots", "crowd", "everyone", "whole gang", "5", "6", "7", "8"]):
         return "LargeGroup"
