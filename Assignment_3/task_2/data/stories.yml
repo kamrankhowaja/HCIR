@@ -1,0 +1,33 @@
+version: "3.1"
+
+stories:
+
+- story: applicant asks about requirements and documents
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_requirements
+  - action: utter_requirements
+  - intent: ask_documents
+  - action: utter_documents
+
+- story: applicant asks deadlines and result timing
+  steps:
+  - intent: ask_deadlines
+  - action: utter_deadlines
+  - intent: ask_admission_results
+  - action: utter_admission_results
+
+- story: applicant asks language and advice
+  steps:
+  - intent: ask_language
+  - action: utter_language
+  - intent: ask_advice
+  - action: utter_advice
+
+- story: applicant asks contact and says goodbye
+  steps:
+  - intent: ask_contact
+  - action: utter_contact
+  - intent: goodbye
+  - action: utter_goodbye

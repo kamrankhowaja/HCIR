@@ -1,0 +1,336 @@
+network "SocialEventRecommendationBN" {
+// written by aGrUM 1.13.2
+}
+
+variable RecognizedUser {
+   type discrete[2] {Known, Unknown};
+}
+
+variable UserPreferenceHistory {
+   type discrete[7] {Music, Food, Sports, Culture, Networking, Games, Unknown};
+}
+
+variable Mood {
+   type discrete[3] {Relaxed, Excited, Stressed};
+}
+
+variable EnvironmentPreference {
+   type discrete[3] {Indoor, Outdoor, NoPreference};
+}
+
+variable GroupSize {
+   type discrete[4] {Alone, Pair, SmallGroup, LargeGroup};
+}
+
+variable BudgetPreference {
+   type discrete[4] {Free, Low, Medium, High};
+}
+
+variable SocialEnergy {
+   type discrete[3] {Low, Medium, High};
+}
+
+variable TimeRestrictions {
+   type discrete[3] {Short, Medium, Long};
+}
+
+variable InterestType {
+   type discrete[6] {Music, Food, Sports, Culture, Networking, Games};
+}
+
+variable EventScoreMatching {
+   type discrete[3] {Low, Medium, High};
+}
+
+variable RecommendedEvent {
+   type discrete[7] {Concert, FoodFestival, SportsEvent, MuseumVisit, StudentMeetup, BoardGameNight, Picnic};
+}
+
+probability (RecognizedUser) {
+   table 0.75 0.25;
+}
+probability (UserPreferenceHistory | RecognizedUser) {
+   (Known) 0.16 0.16 0.12 0.16 0.18 0.17 0.05;
+   (Unknown) 0.07 0.07 0.07 0.07 0.07 0.07 0.58;
+}
+probability (Mood | UserPreferenceHistory) {
+   (Music) 0.25 0.65 0.1;
+   (Food) 0.45 0.45 0.1;
+   (Sports) 0.15 0.75 0.1;
+   (Culture) 0.7 0.2 0.1;
+   (Networking) 0.25 0.6 0.15;
+   (Games) 0.65 0.25 0.1;
+   (Unknown) 0.4 0.35 0.25;
+}
+probability (EnvironmentPreference) {
+   table 0.45 0.35 0.2;
+}
+probability (GroupSize) {
+   table 0.1 0.2 0.45 0.25;
+}
+probability (BudgetPreference) {
+   table 0.25 0.35 0.3 0.1;
+}
+probability (SocialEnergy | Mood, EnvironmentPreference, GroupSize) {
+   (Relaxed, Indoor, Alone) 0.5 0.4 0.1;
+   (Excited, Indoor, Alone) 0.2 0.55 0.25;
+   (Stressed, Indoor, Alone) 0.75 0.2 0.05;
+   (Relaxed, Outdoor, Alone) 0.3 0.5 0.2;
+   (Excited, Outdoor, Alone) 0.1 0.4 0.5;
+   (Stressed, Outdoor, Alone) 0.75 0.2 0.05;
+   (Relaxed, NoPreference, Alone) 0.5 0.4 0.1;
+   (Excited, NoPreference, Alone) 0.2 0.55 0.25;
+   (Stressed, NoPreference, Alone) 0.75 0.2 0.05;
+   (Relaxed, Indoor, Pair) 0.3 0.5 0.2;
+   (Excited, Indoor, Pair) 0.1 0.4 0.5;
+   (Stressed, Indoor, Pair) 0.75 0.2 0.05;
+   (Relaxed, Outdoor, Pair) 0.2 0.55 0.25;
+   (Excited, Outdoor, Pair) 0.05 0.25 0.7;
+   (Stressed, Outdoor, Pair) 0.5 0.4 0.1;
+   (Relaxed, NoPreference, Pair) 0.3 0.5 0.2;
+   (Excited, NoPreference, Pair) 0.1 0.4 0.5;
+   (Stressed, NoPreference, Pair) 0.75 0.2 0.05;
+   (Relaxed, Indoor, SmallGroup) 0.2 0.55 0.25;
+   (Excited, Indoor, SmallGroup) 0.05 0.25 0.7;
+   (Stressed, Indoor, SmallGroup) 0.5 0.4 0.1;
+   (Relaxed, Outdoor, SmallGroup) 0.1 0.4 0.5;
+   (Excited, Outdoor, SmallGroup) 0.05 0.25 0.7;
+   (Stressed, Outdoor, SmallGroup) 0.3 0.5 0.2;
+   (Relaxed, NoPreference, SmallGroup) 0.2 0.55 0.25;
+   (Excited, NoPreference, SmallGroup) 0.05 0.25 0.7;
+   (Stressed, NoPreference, SmallGroup) 0.5 0.4 0.1;
+   (Relaxed, Indoor, LargeGroup) 0.1 0.4 0.5;
+   (Excited, Indoor, LargeGroup) 0.05 0.25 0.7;
+   (Stressed, Indoor, LargeGroup) 0.3 0.5 0.2;
+   (Relaxed, Outdoor, LargeGroup) 0.05 0.25 0.7;
+   (Excited, Outdoor, LargeGroup) 0.05 0.25 0.7;
+   (Stressed, Outdoor, LargeGroup) 0.2 0.55 0.25;
+   (Relaxed, NoPreference, LargeGroup) 0.1 0.4 0.5;
+   (Excited, NoPreference, LargeGroup) 0.05 0.25 0.7;
+   (Stressed, NoPreference, LargeGroup) 0.3 0.5 0.2;
+}
+probability (TimeRestrictions | EnvironmentPreference, GroupSize) {
+   (Indoor, Alone) 0.65 0.25 0.1;
+   (Outdoor, Alone) 0.4 0.45 0.15;
+   (NoPreference, Alone) 0.65 0.25 0.1;
+   (Indoor, Pair) 0.4 0.45 0.15;
+   (Outdoor, Pair) 0.25 0.55 0.2;
+   (NoPreference, Pair) 0.4 0.45 0.15;
+   (Indoor, SmallGroup) 0.25 0.55 0.2;
+   (Outdoor, SmallGroup) 0.15 0.45 0.4;
+   (NoPreference, SmallGroup) 0.25 0.55 0.2;
+   (Indoor, LargeGroup) 0.15 0.45 0.4;
+   (Outdoor, LargeGroup) 0.1 0.25 0.65;
+   (NoPreference, LargeGroup) 0.15 0.45 0.4;
+}
+probability (InterestType | SocialEnergy, TimeRestrictions, GroupSize, BudgetPreference) {
+   (Low, Short, Alone, Free) 0.0454545 0.181818 0.0454545 0.272727 0.136364 0.318182;
+   (Medium, Short, Alone, Free) 0.0952381 0.190476 0.047619 0.190476 0.190476 0.285714;
+   (High, Short, Alone, Free) 0.125 0.166667 0.125 0.166667 0.208333 0.208333;
+   (Low, Medium, Alone, Free) 0.0869565 0.173913 0.0434783 0.304348 0.0869565 0.304348;
+   (Medium, Medium, Alone, Free) 0.136364 0.181818 0.0454545 0.227273 0.136364 0.272727;
+   (High, Medium, Alone, Free) 0.16 0.16 0.12 0.2 0.16 0.2;
+   (Low, Long, Alone, Free) 0.0869565 0.173913 0.0869565 0.304348 0.0869565 0.26087;
+   (Medium, Long, Alone, Free) 0.136364 0.181818 0.0909091 0.227273 0.136364 0.227273;
+   (High, Long, Alone, Free) 0.16 0.16 0.16 0.2 0.16 0.16;
+   (Low, Short, Pair, Free) 0.0454545 0.272727 0.0454545 0.227273 0.136364 0.272727;
+   (Medium, Short, Pair, Free) 0.0952381 0.285714 0.047619 0.142857 0.190476 0.238095;
+   (High, Short, Pair, Free) 0.125 0.25 0.125 0.125 0.208333 0.166667;
+   (Low, Medium, Pair, Free) 0.0869565 0.26087 0.0434783 0.26087 0.0869565 0.26087;
+   (Medium, Medium, Pair, Free) 0.136364 0.272727 0.0454545 0.181818 0.136364 0.227273;
+   (High, Medium, Pair, Free) 0.16 0.24 0.12 0.16 0.16 0.16;
+   (Low, Long, Pair, Free) 0.0869565 0.26087 0.0869565 0.26087 0.0869565 0.217391;
+   (Medium, Long, Pair, Free) 0.136364 0.272727 0.0909091 0.181818 0.136364 0.181818;
+   (High, Long, Pair, Free) 0.16 0.24 0.16 0.16 0.16 0.12;
+   (Low, Short, SmallGroup, Free) 0.0454545 0.227273 0.0454545 0.181818 0.181818 0.318182;
+   (Medium, Short, SmallGroup, Free) 0.0952381 0.238095 0.047619 0.0952381 0.238095 0.285714;
+   (High, Short, SmallGroup, Free) 0.125 0.208333 0.125 0.0833333 0.25 0.208333;
+   (Low, Medium, SmallGroup, Free) 0.0869565 0.217391 0.0434783 0.217391 0.130435 0.304348;
+   (Medium, Medium, SmallGroup, Free) 0.136364 0.227273 0.0454545 0.136364 0.181818 0.272727;
+   (High, Medium, SmallGroup, Free) 0.16 0.2 0.12 0.12 0.2 0.2;
+   (Low, Long, SmallGroup, Free) 0.0869565 0.217391 0.0869565 0.217391 0.130435 0.26087;
+   (Medium, Long, SmallGroup, Free) 0.136364 0.227273 0.0909091 0.136364 0.181818 0.227273;
+   (High, Long, SmallGroup, Free) 0.16 0.2 0.16 0.12 0.2 0.16;
+   (Low, Short, LargeGroup, Free) 0.12 0.2 0.12 0.16 0.2 0.2;
+   (Medium, Short, LargeGroup, Free) 0.166667 0.208333 0.125 0.0833333 0.25 0.166667;
+   (High, Short, LargeGroup, Free) 0.185185 0.185185 0.185185 0.0740741 0.259259 0.111111;
+   (Low, Medium, LargeGroup, Free) 0.153846 0.192308 0.115385 0.192308 0.153846 0.192308;
+   (Medium, Medium, LargeGroup, Free) 0.2 0.2 0.12 0.12 0.2 0.16;
+   (High, Medium, LargeGroup, Free) 0.214286 0.178571 0.178571 0.107143 0.214286 0.107143;
+   (Low, Long, LargeGroup, Free) 0.153846 0.192308 0.153846 0.192308 0.153846 0.153846;
+   (Medium, Long, LargeGroup, Free) 0.2 0.2 0.16 0.12 0.2 0.12;
+   (High, Long, LargeGroup, Free) 0.214286 0.178571 0.214286 0.107143 0.214286 0.0714286;
+   (Low, Short, Alone, Low) 0.047619 0.190476 0.047619 0.285714 0.0952381 0.333333;
+   (Medium, Short, Alone, Low) 0.1 0.2 0.05 0.2 0.15 0.3;
+   (High, Short, Alone, Low) 0.130435 0.173913 0.130435 0.173913 0.173913 0.217391;
+   (Low, Medium, Alone, Low) 0.0909091 0.181818 0.0454545 0.318182 0.0454545 0.318182;
+   (Medium, Medium, Alone, Low) 0.142857 0.190476 0.047619 0.238095 0.0952381 0.285714;
+   (High, Medium, Alone, Low) 0.166667 0.166667 0.125 0.208333 0.125 0.208333;
+   (Low, Long, Alone, Low) 0.0909091 0.181818 0.0909091 0.318182 0.0454545 0.272727;
+   (Medium, Long, Alone, Low) 0.142857 0.190476 0.0952381 0.238095 0.0952381 0.238095;
+   (High, Long, Alone, Low) 0.166667 0.166667 0.166667 0.208333 0.125 0.166667;
+   (Low, Short, Pair, Low) 0.047619 0.285714 0.047619 0.238095 0.0952381 0.285714;
+   (Medium, Short, Pair, Low) 0.1 0.3 0.05 0.15 0.15 0.25;
+   (High, Short, Pair, Low) 0.130435 0.26087 0.130435 0.130435 0.173913 0.173913;
+   (Low, Medium, Pair, Low) 0.0909091 0.272727 0.0454545 0.272727 0.0454545 0.272727;
+   (Medium, Medium, Pair, Low) 0.142857 0.285714 0.047619 0.190476 0.0952381 0.238095;
+   (High, Medium, Pair, Low) 0.166667 0.25 0.125 0.166667 0.125 0.166667;
+   (Low, Long, Pair, Low) 0.0909091 0.272727 0.0909091 0.272727 0.0454545 0.227273;
+   (Medium, Long, Pair, Low) 0.142857 0.285714 0.0952381 0.190476 0.0952381 0.190476;
+   (High, Long, Pair, Low) 0.166667 0.25 0.166667 0.166667 0.125 0.125;
+   (Low, Short, SmallGroup, Low) 0.047619 0.238095 0.047619 0.190476 0.142857 0.333333;
+   (Medium, Short, SmallGroup, Low) 0.1 0.25 0.05 0.1 0.2 0.3;
+   (High, Short, SmallGroup, Low) 0.130435 0.217391 0.130435 0.0869565 0.217391 0.217391;
+   (Low, Medium, SmallGroup, Low) 0.0909091 0.227273 0.0454545 0.227273 0.0909091 0.318182;
+   (Medium, Medium, SmallGroup, Low) 0.142857 0.238095 0.047619 0.142857 0.142857 0.285714;
+   (High, Medium, SmallGroup, Low) 0.166667 0.208333 0.125 0.125 0.166667 0.208333;
+   (Low, Long, SmallGroup, Low) 0.0909091 0.227273 0.0909091 0.227273 0.0909091 0.272727;
+   (Medium, Long, SmallGroup, Low) 0.142857 0.238095 0.0952381 0.142857 0.142857 0.238095;
+   (High, Long, SmallGroup, Low) 0.166667 0.208333 0.166667 0.125 0.166667 0.166667;
+   (Low, Short, LargeGroup, Low) 0.125 0.208333 0.125 0.166667 0.166667 0.208333;
+   (Medium, Short, LargeGroup, Low) 0.173913 0.217391 0.130435 0.0869565 0.217391 0.173913;
+   (High, Short, LargeGroup, Low) 0.192308 0.192308 0.192308 0.0769231 0.230769 0.115385;
+   (Low, Medium, LargeGroup, Low) 0.16 0.2 0.12 0.2 0.12 0.2;
+   (Medium, Medium, LargeGroup, Low) 0.208333 0.208333 0.125 0.125 0.166667 0.166667;
+   (High, Medium, LargeGroup, Low) 0.222222 0.185185 0.185185 0.111111 0.185185 0.111111;
+   (Low, Long, LargeGroup, Low) 0.16 0.2 0.16 0.2 0.12 0.16;
+   (Medium, Long, LargeGroup, Low) 0.208333 0.208333 0.166667 0.125 0.166667 0.125;
+   (High, Long, LargeGroup, Low) 0.222222 0.185185 0.222222 0.111111 0.185185 0.0740741;
+   (Low, Short, Alone, Medium) 0.0952381 0.190476 0.0952381 0.238095 0.0952381 0.285714;
+   (Medium, Short, Alone, Medium) 0.15 0.2 0.1 0.15 0.15 0.25;
+   (High, Short, Alone, Medium) 0.173913 0.173913 0.173913 0.130435 0.173913 0.173913;
+   (Low, Medium, Alone, Medium) 0.136364 0.181818 0.0909091 0.272727 0.0454545 0.272727;
+   (Medium, Medium, Alone, Medium) 0.190476 0.190476 0.0952381 0.190476 0.0952381 0.238095;
+   (High, Medium, Alone, Medium) 0.208333 0.166667 0.166667 0.166667 0.125 0.166667;
+   (Low, Long, Alone, Medium) 0.136364 0.181818 0.136364 0.272727 0.0454545 0.227273;
+   (Medium, Long, Alone, Medium) 0.190476 0.190476 0.142857 0.190476 0.0952381 0.190476;
+   (High, Long, Alone, Medium) 0.208333 0.166667 0.208333 0.166667 0.125 0.125;
+   (Low, Short, Pair, Medium) 0.0952381 0.285714 0.0952381 0.190476 0.0952381 0.238095;
+   (Medium, Short, Pair, Medium) 0.15 0.3 0.1 0.1 0.15 0.2;
+   (High, Short, Pair, Medium) 0.173913 0.26087 0.173913 0.0869565 0.173913 0.130435;
+   (Low, Medium, Pair, Medium) 0.136364 0.272727 0.0909091 0.227273 0.0454545 0.227273;
+   (Medium, Medium, Pair, Medium) 0.190476 0.285714 0.0952381 0.142857 0.0952381 0.190476;
+   (High, Medium, Pair, Medium) 0.208333 0.25 0.166667 0.125 0.125 0.125;
+   (Low, Long, Pair, Medium) 0.136364 0.272727 0.136364 0.227273 0.0454545 0.181818;
+   (Medium, Long, Pair, Medium) 0.190476 0.285714 0.142857 0.142857 0.0952381 0.142857;
+   (High, Long, Pair, Medium) 0.208333 0.25 0.208333 0.125 0.125 0.0833333;
+   (Low, Short, SmallGroup, Medium) 0.0952381 0.238095 0.0952381 0.142857 0.142857 0.285714;
+   (Medium, Short, SmallGroup, Medium) 0.15 0.25 0.1 0.05 0.2 0.25;
+   (High, Short, SmallGroup, Medium) 0.173913 0.217391 0.173913 0.0434783 0.217391 0.173913;
+   (Low, Medium, SmallGroup, Medium) 0.136364 0.227273 0.0909091 0.181818 0.0909091 0.272727;
+   (Medium, Medium, SmallGroup, Medium) 0.190476 0.238095 0.0952381 0.0952381 0.142857 0.238095;
+   (High, Medium, SmallGroup, Medium) 0.208333 0.208333 0.166667 0.0833333 0.166667 0.166667;
+   (Low, Long, SmallGroup, Medium) 0.136364 0.227273 0.136364 0.181818 0.0909091 0.227273;
+   (Medium, Long, SmallGroup, Medium) 0.190476 0.238095 0.142857 0.0952381 0.142857 0.190476;
+   (High, Long, SmallGroup, Medium) 0.208333 0.208333 0.208333 0.0833333 0.166667 0.125;
+   (Low, Short, LargeGroup, Medium) 0.166667 0.208333 0.166667 0.125 0.166667 0.166667;
+   (Medium, Short, LargeGroup, Medium) 0.217391 0.217391 0.173913 0.0434783 0.217391 0.130435;
+   (High, Short, LargeGroup, Medium) 0.230769 0.192308 0.230769 0.0384615 0.230769 0.0769231;
+   (Low, Medium, LargeGroup, Medium) 0.2 0.2 0.16 0.16 0.12 0.16;
+   (Medium, Medium, LargeGroup, Medium) 0.25 0.208333 0.166667 0.0833333 0.166667 0.125;
+   (High, Medium, LargeGroup, Medium) 0.259259 0.185185 0.222222 0.0740741 0.185185 0.0740741;
+   (Low, Long, LargeGroup, Medium) 0.2 0.2 0.2 0.16 0.12 0.12;
+   (Medium, Long, LargeGroup, Medium) 0.25 0.208333 0.208333 0.0833333 0.166667 0.0833333;
+   (High, Long, LargeGroup, Medium) 0.259259 0.185185 0.259259 0.0740741 0.185185 0.037037;
+   (Low, Short, Alone, High) 0.136364 0.136364 0.0909091 0.272727 0.0909091 0.272727;
+   (Medium, Short, Alone, High) 0.190476 0.142857 0.0952381 0.190476 0.142857 0.238095;
+   (High, Short, Alone, High) 0.208333 0.125 0.166667 0.166667 0.166667 0.166667;
+   (Low, Medium, Alone, High) 0.173913 0.130435 0.0869565 0.304348 0.0434783 0.26087;
+   (Medium, Medium, Alone, High) 0.227273 0.136364 0.0909091 0.227273 0.0909091 0.227273;
+   (High, Medium, Alone, High) 0.24 0.12 0.16 0.2 0.12 0.16;
+   (Low, Long, Alone, High) 0.173913 0.130435 0.130435 0.304348 0.0434783 0.217391;
+   (Medium, Long, Alone, High) 0.227273 0.136364 0.136364 0.227273 0.0909091 0.181818;
+   (High, Long, Alone, High) 0.24 0.12 0.2 0.2 0.12 0.12;
+   (Low, Short, Pair, High) 0.136364 0.227273 0.0909091 0.227273 0.0909091 0.227273;
+   (Medium, Short, Pair, High) 0.190476 0.238095 0.0952381 0.142857 0.142857 0.190476;
+   (High, Short, Pair, High) 0.208333 0.208333 0.166667 0.125 0.166667 0.125;
+   (Low, Medium, Pair, High) 0.173913 0.217391 0.0869565 0.26087 0.0434783 0.217391;
+   (Medium, Medium, Pair, High) 0.227273 0.227273 0.0909091 0.181818 0.0909091 0.181818;
+   (High, Medium, Pair, High) 0.24 0.2 0.16 0.16 0.12 0.12;
+   (Low, Long, Pair, High) 0.173913 0.217391 0.130435 0.26087 0.0434783 0.173913;
+   (Medium, Long, Pair, High) 0.227273 0.227273 0.136364 0.181818 0.0909091 0.136364;
+   (High, Long, Pair, High) 0.24 0.2 0.2 0.16 0.12 0.08;
+   (Low, Short, SmallGroup, High) 0.136364 0.181818 0.0909091 0.181818 0.136364 0.272727;
+   (Medium, Short, SmallGroup, High) 0.190476 0.190476 0.0952381 0.0952381 0.190476 0.238095;
+   (High, Short, SmallGroup, High) 0.208333 0.166667 0.166667 0.0833333 0.208333 0.166667;
+   (Low, Medium, SmallGroup, High) 0.173913 0.173913 0.0869565 0.217391 0.0869565 0.26087;
+   (Medium, Medium, SmallGroup, High) 0.227273 0.181818 0.0909091 0.136364 0.136364 0.227273;
+   (High, Medium, SmallGroup, High) 0.24 0.16 0.16 0.12 0.16 0.16;
+   (Low, Long, SmallGroup, High) 0.173913 0.173913 0.130435 0.217391 0.0869565 0.217391;
+   (Medium, Long, SmallGroup, High) 0.227273 0.181818 0.136364 0.136364 0.136364 0.181818;
+   (High, Long, SmallGroup, High) 0.24 0.16 0.2 0.12 0.16 0.12;
+   (Low, Short, LargeGroup, High) 0.2 0.16 0.16 0.16 0.16 0.16;
+   (Medium, Short, LargeGroup, High) 0.25 0.166667 0.166667 0.0833333 0.208333 0.125;
+   (High, Short, LargeGroup, High) 0.259259 0.148148 0.222222 0.0740741 0.222222 0.0740741;
+   (Low, Medium, LargeGroup, High) 0.230769 0.153846 0.153846 0.192308 0.115385 0.153846;
+   (Medium, Medium, LargeGroup, High) 0.28 0.16 0.16 0.12 0.16 0.12;
+   (High, Medium, LargeGroup, High) 0.285714 0.142857 0.214286 0.107143 0.178571 0.0714286;
+   (Low, Long, LargeGroup, High) 0.230769 0.153846 0.192308 0.192308 0.115385 0.115385;
+   (Medium, Long, LargeGroup, High) 0.28 0.16 0.2 0.12 0.16 0.08;
+   (High, Long, LargeGroup, High) 0.285714 0.142857 0.25 0.107143 0.178571 0.0357143;
+}
+probability (EventScoreMatching | UserPreferenceHistory, InterestType) {
+   (Music, Music) 0.05 0.2 0.75;
+   (Food, Music) 0.65 0.25 0.1;
+   (Sports, Music) 0.65 0.25 0.1;
+   (Culture, Music) 0.2 0.6 0.2;
+   (Networking, Music) 0.65 0.25 0.1;
+   (Games, Music) 0.65 0.25 0.1;
+   (Unknown, Music) 0.2 0.55 0.25;
+   (Music, Food) 0.65 0.25 0.1;
+   (Food, Food) 0.05 0.2 0.75;
+   (Sports, Food) 0.65 0.25 0.1;
+   (Culture, Food) 0.65 0.25 0.1;
+   (Networking, Food) 0.65 0.25 0.1;
+   (Games, Food) 0.2 0.6 0.2;
+   (Unknown, Food) 0.2 0.55 0.25;
+   (Music, Sports) 0.65 0.25 0.1;
+   (Food, Sports) 0.65 0.25 0.1;
+   (Sports, Sports) 0.05 0.2 0.75;
+   (Culture, Sports) 0.65 0.25 0.1;
+   (Networking, Sports) 0.2 0.6 0.2;
+   (Games, Sports) 0.65 0.25 0.1;
+   (Unknown, Sports) 0.2 0.55 0.25;
+   (Music, Culture) 0.2 0.6 0.2;
+   (Food, Culture) 0.65 0.25 0.1;
+   (Sports, Culture) 0.65 0.25 0.1;
+   (Culture, Culture) 0.05 0.2 0.75;
+   (Networking, Culture) 0.2 0.6 0.2;
+   (Games, Culture) 0.65 0.25 0.1;
+   (Unknown, Culture) 0.2 0.55 0.25;
+   (Music, Networking) 0.65 0.25 0.1;
+   (Food, Networking) 0.65 0.25 0.1;
+   (Sports, Networking) 0.2 0.6 0.2;
+   (Culture, Networking) 0.2 0.6 0.2;
+   (Networking, Networking) 0.05 0.2 0.75;
+   (Games, Networking) 0.65 0.25 0.1;
+   (Unknown, Networking) 0.2 0.55 0.25;
+   (Music, Games) 0.65 0.25 0.1;
+   (Food, Games) 0.2 0.6 0.2;
+   (Sports, Games) 0.65 0.25 0.1;
+   (Culture, Games) 0.65 0.25 0.1;
+   (Networking, Games) 0.65 0.25 0.1;
+   (Games, Games) 0.05 0.2 0.75;
+   (Unknown, Games) 0.2 0.55 0.25;
+}
+probability (RecommendedEvent | InterestType, EventScoreMatching) {
+   (Music, Low) 0.0909091 0.151515 0.151515 0.151515 0.151515 0.151515 0.151515;
+   (Food, Low) 0.151515 0.0909091 0.151515 0.151515 0.151515 0.151515 0.151515;
+   (Sports, Low) 0.151515 0.151515 0.0909091 0.151515 0.151515 0.151515 0.151515;
+   (Culture, Low) 0.151515 0.151515 0.151515 0.0909091 0.151515 0.151515 0.151515;
+   (Networking, Low) 0.151515 0.151515 0.151515 0.151515 0.0909091 0.151515 0.151515;
+   (Games, Low) 0.151515 0.151515 0.151515 0.151515 0.151515 0.0909091 0.151515;
+   (Music, Medium) 0.368421 0.105263 0.105263 0.105263 0.105263 0.105263 0.105263;
+   (Food, Medium) 0.1 0.35 0.1 0.1 0.1 0.1 0.15;
+   (Sports, Medium) 0.105263 0.105263 0.368421 0.105263 0.105263 0.105263 0.105263;
+   (Culture, Medium) 0.105263 0.105263 0.105263 0.368421 0.105263 0.105263 0.105263;
+   (Networking, Medium) 0.105263 0.105263 0.105263 0.105263 0.368421 0.105263 0.105263;
+   (Games, Medium) 0.105263 0.105263 0.105263 0.105263 0.105263 0.368421 0.105263;
+   (Music, High) 0.5 0.0833333 0.0833333 0.0833333 0.0833333 0.0833333 0.0833333;
+   (Food, High) 0.08 0.48 0.08 0.08 0.08 0.08 0.12;
+   (Sports, High) 0.0833333 0.0833333 0.5 0.0833333 0.0833333 0.0833333 0.0833333;
+   (Culture, High) 0.0833333 0.0833333 0.0833333 0.5 0.0833333 0.0833333 0.0833333;
+   (Networking, High) 0.0833333 0.0833333 0.0833333 0.0833333 0.5 0.0833333 0.0833333;
+   (Games, High) 0.0833333 0.0833333 0.0833333 0.0833333 0.0833333 0.5 0.0833333;
+}
+

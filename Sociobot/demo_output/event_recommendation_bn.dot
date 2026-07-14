@@ -1,0 +1,32 @@
+digraph "SocialEventRecommendationBN" {
+  graph [bgcolor=transparent,label="SocialEventRecommendationBN"];
+  node [style=filled fillcolor="#ffffaa"];
+
+"RecognizedUser" [comment="0:RecognizedUser{Known|Unknown}"];
+"UserPreferenceHistory" [comment="1:UserPreferenceHistory{Music|Food|Sports|Culture|Networking|Games|Unknown}"];
+"Mood" [comment="2:Mood{Relaxed|Excited|Stressed}"];
+"EnvironmentPreference" [comment="3:EnvironmentPreference{Indoor|Outdoor|NoPreference}"];
+"GroupSize" [comment="4:GroupSize{Alone|Pair|SmallGroup|LargeGroup}"];
+"BudgetPreference" [comment="5:BudgetPreference{Free|Low|Medium|High}"];
+"SocialEnergy" [comment="6:SocialEnergy{Low|Medium|High}"];
+"TimeRestrictions" [comment="7:TimeRestrictions{Short|Medium|Long}"];
+"InterestType" [comment="8:InterestType{Music|Food|Sports|Culture|Networking|Games}"];
+"EventScoreMatching" [comment="9:EventScoreMatching{Low|Medium|High}"];
+"RecommendedEvent" [comment="10:RecommendedEvent{Concert|FoodFestival|SportsEvent|MuseumVisit|StudentMeetup|BoardGameNight|Picnic}"];
+
+  "RecognizedUser" -> "UserPreferenceHistory";
+  "UserPreferenceHistory" -> "EventScoreMatching";
+  "UserPreferenceHistory" -> "Mood";
+  "Mood" -> "SocialEnergy";
+  "EnvironmentPreference" -> "SocialEnergy";
+  "EnvironmentPreference" -> "TimeRestrictions";
+  "GroupSize" -> "InterestType";
+  "GroupSize" -> "SocialEnergy";
+  "GroupSize" -> "TimeRestrictions";
+  "BudgetPreference" -> "InterestType";
+  "SocialEnergy" -> "InterestType";
+  "TimeRestrictions" -> "InterestType";
+  "InterestType" -> "EventScoreMatching";
+  "InterestType" -> "RecommendedEvent";
+  "EventScoreMatching" -> "RecommendedEvent";
+}

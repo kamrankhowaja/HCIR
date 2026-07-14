@@ -1,0 +1,53 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Respond to greet
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: Answer MAS requirements
+  steps:
+  - intent: ask_requirements
+  - action: utter_requirements
+
+- rule: Answer MAS deadlines
+  steps:
+  - intent: ask_deadlines
+  - action: utter_deadlines
+
+- rule: Answer required documents
+  steps:
+  - intent: ask_documents
+  - action: utter_documents
+
+- rule: Answer language requirements
+  steps:
+  - intent: ask_language
+  - action: utter_language
+
+- rule: Answer admission result timing
+  steps:
+  - intent: ask_admission_results
+  - action: utter_admission_results
+
+- rule: Answer contact questions
+  steps:
+  - intent: ask_contact
+  - action: utter_contact
+
+- rule: Give application advice
+  steps:
+  - intent: ask_advice
+  - action: utter_advice
+
+- rule: Fetch lunch menu
+  steps:
+  - intent: ask_lunch_menu
+  - action: action_get_lunch_menu
